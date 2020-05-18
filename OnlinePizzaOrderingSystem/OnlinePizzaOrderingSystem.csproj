@@ -16,4 +16,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnlinePizzaOderingSystem.DataAccess\OnlinePizzaOrderingSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\OnlinePizzaOrderingSystem.Model\OnlinePizzaOrderingSystem.Models.csproj" />
+  </ItemGroup>
+
 </Project>
