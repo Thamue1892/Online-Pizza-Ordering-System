@@ -21,4 +21,10 @@
     <ProjectReference Include="..\OnlinePizzaOrderingSystem.Model\OnlinePizzaOrderingSystem.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\Customer\Views\" />
+  </ItemGroup>
+
 </Project>
