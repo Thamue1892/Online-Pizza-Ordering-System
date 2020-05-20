@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using OnlinePizzaOrderingSystem.Models;
 
 namespace OnlinePizzaOrderingSystem.DataAccess
 {
@@ -9,5 +10,7 @@ namespace OnlinePizzaOrderingSystem.DataAccess
             : base(options)
         {
         }
+
+        public DbSet<Category> Category { get; set; }
     }
 }

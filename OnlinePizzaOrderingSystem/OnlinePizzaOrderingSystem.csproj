@@ -14,17 +14,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OnlinePizzaOderingSystem.DataAccess\OnlinePizzaOrderingSystem.DataAccess.csproj" />
     <ProjectReference Include="..\OnlinePizzaOrderingSystem.Model\OnlinePizzaOrderingSystem.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Areas\Customer\Views\" />
   </ItemGroup>
 
 </Project>
