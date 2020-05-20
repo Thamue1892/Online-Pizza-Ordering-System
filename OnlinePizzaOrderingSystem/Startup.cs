@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlinePizzaOrderingSystem.DataAccess;
+using OnlinePizzaOrderingSystem.DataAccess.Data;
+using OnlinePizzaOrderingSystem.DataAccess.Data.IRepository;
 
 namespace OnlinePizzaOrderingSystem
 {
@@ -15,7 +17,7 @@ namespace OnlinePizzaOrderingSystem
         {
             Configuration = configuration;
         }
-
+      
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -28,6 +30,8 @@ namespace OnlinePizzaOrderingSystem
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +60,7 @@ namespace OnlinePizzaOrderingSystem
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
