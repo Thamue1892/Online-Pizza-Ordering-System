@@ -12,5 +12,6 @@ namespace OnlinePizzaOrderingSystem.DataAccess
         }
 
         public DbSet<Category> Category { get; set; }
+        public DbSet<Pizza> Pizza { get; set; }
     }
 }

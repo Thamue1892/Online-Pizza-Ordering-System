@@ -13,9 +13,12 @@ namespace OnlinePizzaOrderingSystem.DataAccess.Data
         {
             _db = db;
             Category = new CategoryRepository(_db);
+            Pizza = new PizzaRepository(db);
         }
 
         public ICategoryRepository Category { get; private set; }
+
+        public IPizzaRepository Pizza { get; private set; }
 
         public void Dispose()
         {
