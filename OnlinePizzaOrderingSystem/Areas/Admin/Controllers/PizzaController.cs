@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlinePizzaOrderingSystem.DataAccess.Data.IRepository;
+using OnlinePizzaOrderingSystem.Models.ViewModels;
 
 namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
 {
@@ -11,6 +12,9 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
     public class PizzaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+
+        [BindProperty]
+        public PizzaViewModel PizzaViewModel { get; set; }
 
         public PizzaController(IUnitOfWork unitOfWork)
         {
@@ -21,14 +25,53 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult Upsert(int? id)
+        {
+            PizzaViewModel = new PizzaViewModel()
+            {
+                Pizza = new Models.Pizza(),
+                CategoryList = _unitOfWork.Category.GetCategoryListForDropDown()
+            };
+            if (id!=null)
+            {
+                PizzaViewModel.Pizza = _unitOfWork.Pizza.Get(id.GetValueOrDefault());
+            }
 
+            return View(PizzaViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert()
+        {
+            if (ModelState.IsValid)
+            {
+                if (PizzaViewModel.Pizza.Id==0)
+                {
+                    _unitOfWork.Pizza.Add(PizzaViewModel.Pizza);
+                }
+                else
+                {
+                    var pizzaFromDb = _unitOfWork.Pizza.Get(PizzaViewModel.Pizza.Id);
+                    _unitOfWork.Pizza.Update(PizzaViewModel.Pizza);
+                }
+                _unitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(PizzaViewModel);
+            }
+
+           
+        }
 
 
         #region API CALLS
 
         public IActionResult GetAll()
         {
-            return Json(new {data = _unitOfWork.Pizza.GetAll()});
+            return Json(new {data = _unitOfWork.Pizza.GetAll(includeProperties:"Category")});
         }
 
         #endregion
