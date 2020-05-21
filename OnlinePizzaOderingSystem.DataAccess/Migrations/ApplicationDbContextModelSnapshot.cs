@@ -221,8 +221,10 @@ namespace OnlinePizzaOrderingSystem.DataAccess.Data.Migrations
 
             modelBuilder.Entity("OnlinePizzaOrderingSystem.Models.Category", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");

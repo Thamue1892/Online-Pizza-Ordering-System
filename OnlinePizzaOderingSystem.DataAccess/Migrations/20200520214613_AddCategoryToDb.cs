@@ -10,7 +10,8 @@ namespace OnlinePizzaOrderingSystem.DataAccess.Data.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false)
                 },

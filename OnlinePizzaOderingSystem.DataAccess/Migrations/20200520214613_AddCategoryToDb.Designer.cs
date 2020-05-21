@@ -10,7 +10,7 @@ using OnlinePizzaOrderingSystem.DataAccess;
 namespace OnlinePizzaOrderingSystem.DataAccess.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200520182105_AddCategoryToDb")]
+    [Migration("20200520214613_AddCategoryToDb")]
     partial class AddCategoryToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,8 +223,10 @@ namespace OnlinePizzaOrderingSystem.DataAccess.Data.Migrations
 
             modelBuilder.Entity("OnlinePizzaOrderingSystem.Models.Category", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
