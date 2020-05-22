@@ -59,8 +59,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    background-image: url('/images/pattern.png');
+    background-repeat: repeat;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 .footer {
   position: absolute;
@@ -74,11 +75,6 @@ body {
     background-color: #df382c !important;
 }
 
-.search-background {
-    background: url('../images/pizza.jpg');
-    background-color: darkgoldenrod;
-    opacity: 0.9;
-}
 
 .backgroundWhite {
     background-color: white;
@@ -111,4 +107,54 @@ body {
 
 .thumbnail img {
     width: 100%;
+}
+
+.addToCart {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+.navbar {
+    background-image: none;
+    
+}
+
+.navbar-dark {
+    background-color: #df382c;
+    border-color: #df382c;
+}
+
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+    font-size: 1.2em;
+}
+
+.navbar .nav > li > a {
+    font-size: 1.2em;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    color: white;
+}
+
+.carousel .item {
+    height: 400px;
+}
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 400px;
 }

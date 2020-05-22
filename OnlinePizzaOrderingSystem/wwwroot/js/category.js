@@ -13,7 +13,7 @@ function loadDataTable() {
             "datatype": "json"
         },
         "columns": [
-            { "data": "name", "width": "50%" },
+            { "data": "name", "width": "30%" },
             { "data": "displayOrder", "width": "20%" },
             {
                 "data": "id",
@@ -28,7 +28,7 @@ function loadDataTable() {
                                 </a>
                             </div>
                             `;
-                }, "width": "30%"
+                }, "width": "50%"
             }
         ],
         "language": {
