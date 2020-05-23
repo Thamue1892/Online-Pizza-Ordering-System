@@ -6,5 +6,8 @@
 <h4>Our weekly selection - Just for you!</h4>
 
 <div class="row">
-
+    @*@foreach (var pie in Model.PizzaList.Where(p=>p.CategoryId==Category.id))
+    {
+        <partial name="_PizzaCard" model="pie"/>
+    }*@
 </div>

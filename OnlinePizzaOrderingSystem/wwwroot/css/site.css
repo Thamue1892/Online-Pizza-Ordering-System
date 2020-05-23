@@ -148,8 +148,16 @@ footer {
     color: white;
 }
 
-.carousel .item {
+.carousel {
     height: 400px;
+   
+}
+
+.carousel-item,
+.carousel-inner,
+.carousel-inner img {
+    height: 400px;
+    width:100%;
 }
 
 .item img {

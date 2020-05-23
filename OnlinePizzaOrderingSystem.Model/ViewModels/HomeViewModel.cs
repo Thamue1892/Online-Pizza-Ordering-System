@@ -6,6 +6,7 @@ namespace OnlinePizzaOrderingSystem.Models.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<Pizza> PizzasOfTheWeek { get; set; }
+        public IEnumerable<Pizza> PizzaList { get; set; }
+        public IEnumerable<Category> CategoryList { get; set; }
     }
 }
