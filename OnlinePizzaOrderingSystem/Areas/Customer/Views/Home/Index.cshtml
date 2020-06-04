@@ -1,13 +1,16 @@
 ﻿@model OnlinePizzaOrderingSystem.Models.ViewModels.HomeViewModel
 
-<partial name="_Carousel"/>
+<partial name="_Carousel" />
 
 <h2>Pizzas of the week</h2>
 <h4>Our weekly selection - Just for you!</h4>
 
 <div class="row">
-    @*@foreach (var pie in Model.PizzaList.Where(p=>p.CategoryId==Category.id))
+    @foreach (var pizza in Model.PizzaList.OrderBy(o => o.IsPizzaOfTheWeek))
     {
-        <partial name="_PizzaCard" model="pie"/>
-    }*@
+        @if (Model.PizzaList.Any(c => c.IsPizzaOfTheWeek == pizza.IsPizzaOfTheWeek))
+        {
+            <partial name="_PizzaCard" model="pizza" />
+        }
+    }
 </div>

@@ -16,5 +16,7 @@ namespace OnlinePizzaOrderingSystem.Models
         [Required]
         [Display(Name = "Display Order")]
         public int DisplayOrder { get; set; }
-    }
+
+        public List<Pizza> Pizzas { get; set; }
+   }
 }

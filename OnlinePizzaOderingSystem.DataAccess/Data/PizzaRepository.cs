@@ -20,12 +20,16 @@ namespace OnlinePizzaOrderingSystem.DataAccess.Data
         {
             var objFromDb = _db.Pizza.FirstOrDefault(p => p.Id == pizza.Id);
 
-            objFromDb.Name = pizza.Name;
-            objFromDb.Price = pizza.Price;
-            objFromDb.Category = pizza.Category;
-            objFromDb.Description = pizza.Description;
-            objFromDb.ImageUrl = pizza.ImageUrl;
-            objFromDb.CategoryId = pizza.CategoryId;
+            if (objFromDb != null)
+            {
+                objFromDb.Name = pizza.Name;
+                objFromDb.Price = pizza.Price;
+                objFromDb.Category = pizza.Category;
+                objFromDb.Description = pizza.Description;
+                objFromDb.ImageUrl = pizza.ImageUrl;
+                objFromDb.CategoryId = pizza.CategoryId;
+                objFromDb.IsPizzaOfTheWeek = pizza.IsPizzaOfTheWeek;
+            }
 
             _db.SaveChanges();
         }

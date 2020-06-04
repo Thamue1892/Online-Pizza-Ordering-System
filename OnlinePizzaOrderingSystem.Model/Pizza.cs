@@ -29,5 +29,8 @@ namespace OnlinePizzaOrderingSystem.Models
 
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+        [Display(Name = "Pizza Of The Week")]
+        public bool IsPizzaOfTheWeek { get; set; }
     }
 }

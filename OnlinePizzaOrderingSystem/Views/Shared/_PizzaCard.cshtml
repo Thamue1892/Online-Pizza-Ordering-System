@@ -1,22 +1,24 @@
-﻿@model Pizza
+﻿@model OnlinePizzaOrderingSystem.Models.Pizza
 
-    <div class="col-sm-4 col-lg-4 col-md-4">
+<div class="col-sm-4 col-lg-4 col-md-4">
+    <div class="card" style="border: 2px solid #C00000">
         <div class="thumbnail">
-            <img src="@Model.ImageUrl" alt="">
-            <div class="caption">
+            <img src="https://images.pexels.com/photos/1552642/pexels-photo-1552642.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="card-img-top p-2 rounded" alt="" />
+            <div class="card-body">
                 <h3 class="pull-right">@Model.Price.ToString("c")</h3>
                 <h3>
-                    <a asp-controller="Pizza" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+                    <a asp-area="Admin" asp-controller="Pizza" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
                 </h3>
-                <p>@Model.Description</p>
+                @*<p class="card-text">@Model.Description</p>*@
             </div>
             <div class="addToCart">
                 <p class="button">
-                    <a class="btn btn-primary">
-                       @*asp-controller="ShoppingCart"
+                    <a class="btn btn-danger"
+                       asp-controller="ShoppingCart"
                        asp-action="AddToShoppingCart"
-                       asp-route-pieId="@Model.PieId">Add to cart*@</a>
+                       asp-route-pieId="@Model.Id">Add to cart</a>
                 </p>
             </div>
         </div>
     </div>
+</div>

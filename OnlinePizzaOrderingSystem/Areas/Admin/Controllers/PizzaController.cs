@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlinePizzaOrderingSystem.DataAccess.Data.IRepository;
+using OnlinePizzaOrderingSystem.Models;
 using OnlinePizzaOrderingSystem.Models.ViewModels;
 
 namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
@@ -12,6 +13,7 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
     public class PizzaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        
 
         [BindProperty]
         public PizzaViewModel PizzaViewModel { get; set; }
@@ -40,6 +42,7 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
             return View(PizzaViewModel);
         }
 
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Upsert()
@@ -52,7 +55,7 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
                 }
                 else
                 {
-                    var pizzaFromDb = _unitOfWork.Pizza.Get(PizzaViewModel.Pizza.Id);
+                    var pizzaFromDb = _unitOfWork.Pizza.Get(PizzaViewModel.Pizza.Id);  
                     _unitOfWork.Pizza.Update(PizzaViewModel.Pizza);
                 }
                 _unitOfWork.Save();
@@ -67,11 +70,26 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
         }
 
 
+
         #region API CALLS
 
         public IActionResult GetAll()
         {
-            return Json(new {data = _unitOfWork.Pizza.GetAll(includeProperties:"Category")});
+            return Json(new {data = _unitOfWork.Pizza.GetAll(/*includeProperties:"Category"*/) });
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var pizzaFromDb = _unitOfWork.Pizza.Get(id);
+            if (pizzaFromDb==null)
+            {
+                return Json(new {success = false, message = "Error while deleting."});
+            }
+
+            _unitOfWork.Pizza.Remove(pizzaFromDb);
+            _unitOfWork.Save();
+            return Json(new {success = true, message = "Deleted successfully."});
         }
 
         #endregion

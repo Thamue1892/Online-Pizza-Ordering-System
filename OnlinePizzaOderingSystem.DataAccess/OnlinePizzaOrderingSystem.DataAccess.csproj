@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200520181844_AddCategoryToDb_.cs" />
     <Compile Remove="Migrations\20200520181844_AddCategoryToDb_.Designer.cs" />
+    <Compile Remove="Migrations\20200531200647_AddPizzaOfTheWeekToDb.cs" />
+    <Compile Remove="Migrations\20200531200647_AddPizzaOfTheWeekToDb.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

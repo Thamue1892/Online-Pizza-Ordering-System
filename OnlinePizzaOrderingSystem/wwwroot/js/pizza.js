@@ -14,8 +14,8 @@ function loadDataTable() {
         },
         "columns": [
             { "data": "name", "width": "20%" },
-            { "data": "category.name", "width": "20%" },
-            { "data": "price", "width": "15%" },
+            { "data": "price", "width": "20%" },
+            { "data": "isPizzaOfTheWeek", "width": "10%" },
             {
                 "data": "id",
                 "render": function (data) {
@@ -29,7 +29,7 @@ function loadDataTable() {
                                 </a>
                             </div>
                             `;
-                }, "width": "45%"
+                }, "width": "30%"
             }
         ],
         "language": {
