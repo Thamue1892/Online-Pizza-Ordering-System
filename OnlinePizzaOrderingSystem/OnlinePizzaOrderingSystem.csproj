@@ -26,4 +26,8 @@
     <ProjectReference Include="..\OnlinePizzaOrderingSystem.Model\OnlinePizzaOrderingSystem.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\pizza\" />
+  </ItemGroup>
+
 </Project>

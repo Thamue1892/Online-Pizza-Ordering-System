@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OnlinePizzaOrderingSystem.DataAccess.Data.IRepository;
 using OnlinePizzaOrderingSystem.Models;
@@ -13,19 +15,22 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
     public class PizzaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        
+        private readonly IWebHostEnvironment _hostEnvironment;
 
         [BindProperty]
         public PizzaViewModel PizzaViewModel { get; set; }
 
-        public PizzaController(IUnitOfWork unitOfWork)
+        public PizzaController(IUnitOfWork unitOfWork,IWebHostEnvironment hostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _hostEnvironment = hostEnvironment;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
 
         public IActionResult Upsert(int? id)
         {
@@ -49,13 +54,49 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                string webRootPath = _hostEnvironment.WebRootPath;
+                var files = HttpContext.Request.Form.Files;
                 if (PizzaViewModel.Pizza.Id==0)
                 {
+                    //New Pizza
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(webRootPath, @"images\pizza");
+                    var extension = Path.GetExtension(files[0].FileName);
+                    using (var fileStreams = new FileStream(Path.Combine(uploads,fileName + extension),FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStreams);
+                    }
+
+                    PizzaViewModel.Pizza.ImageUrl = @"\images\Pizzas\" + fileName + extension;
                     _unitOfWork.Pizza.Add(PizzaViewModel.Pizza);
                 }
                 else
                 {
-                    var pizzaFromDb = _unitOfWork.Pizza.Get(PizzaViewModel.Pizza.Id);  
+                    //Edit Pizza
+                    var pizzaFromDb = _unitOfWork.Pizza.Get(PizzaViewModel.Pizza.Id);
+                    if (files.Count>0)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+                        var uploads = Path.Combine(webRootPath, @"images\pizza");
+                        var extension_new = Path.GetExtension(files[0].FileName);
+
+                        var imagePath = Path.Combine(webRootPath, pizzaFromDb.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(imagePath))
+                        {
+                            System.IO.File.Delete(imagePath);
+                        }
+
+                        using (var fileStreams = new FileStream(Path.Combine(uploads,fileName+extension_new),FileMode.Create))
+                        {
+                            files[0].CopyTo(fileStreams);
+                        }
+
+                        PizzaViewModel.Pizza.ImageUrl = @"\images\pizza\" + fileName + extension_new;
+                    }
+                    else
+                    {
+                        PizzaViewModel.Pizza.ImageUrl = pizzaFromDb.ImageUrl;
+                    }
                     _unitOfWork.Pizza.Update(PizzaViewModel.Pizza);
                 }
                 _unitOfWork.Save();
@@ -68,6 +109,7 @@ namespace OnlinePizzaOrderingSystem.Areas.Admin.Controllers
 
            
         }
+
 
 
 
